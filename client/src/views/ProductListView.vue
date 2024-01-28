@@ -29,16 +29,23 @@
 <script>
 import MainHeader from '@/components/MainHeader.vue'
 import AddProduct from '@/components/AddProduct.vue'
+import ProductDataService from '@/services/ProductDataService'
 
 export default {
   components: {
     MainHeader,
     AddProduct
   },
-  props: ['inventory'],
+  mounted () {
+    ProductDataService.getAll()
+      .then(response => {
+        this.inventory = response.data
+      })
+  },
   data () {
     return {
-      showAddProduct: false
+      showAddProduct: false,
+      inventory: []
     }
   },
   methods: {
